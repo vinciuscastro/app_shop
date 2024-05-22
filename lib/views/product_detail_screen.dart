@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import '../providers/product.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  final Product product;
-
-  const ProductDetailScreen(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Product product = ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
         title: Text(product.title, style: const TextStyle(color: Colors.white)),
