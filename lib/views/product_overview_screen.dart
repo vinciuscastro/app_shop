@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../utils/app_routes.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/badge_widget.dart';
+import '../widgets/app_drawer.dart';
 import '../providers/products.dart';
 import '../providers/cart.dart';
 
@@ -24,14 +25,14 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     final Products products = Provider.of(context);
 
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           title:
               const Text('Minha Loja', style: TextStyle(color: Colors.white)),
           backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           actions: [
             PopupMenuButton(
-                icon: const Icon(Icons.more_horiz),
+                icon: const Icon(Icons.more_horiz, color: Colors.white),
                 onSelected: (FilterOptions selected) {
                   setState(() {
                     _showFavoriteOnly = selected == FilterOptions.Favorite;
@@ -49,7 +50,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                     ]),
             Consumer<Cart>(
               child: IconButton(
-                icon: const Icon(Icons.shopping_cart),
+                icon: const Icon(Icons.shopping_cart, color: Colors.white),
                 onPressed: () {
                   Navigator.of(context).pushNamed(AppRoutes.CART);
                 },
@@ -59,8 +60,10 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 color: Theme.of(context).hintColor,
                 child: child!,
               ),
-            )]
-        ),
-        body: ProductGrid(_showFavoriteOnly));
+            )
+          ]),
+      body: ProductGrid(_showFavoriteOnly),
+      drawer: AppDrawer(),
+    );
   }
 }
