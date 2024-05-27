@@ -8,6 +8,7 @@ import 'views/orders_screen.dart';
 import 'providers/products.dart';
 import 'providers/cart.dart';
 import 'providers/orders.dart';
+import 'providers/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,32 +20,61 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Products()),
         ChangeNotifierProvider(create: (_) => Cart()),
         ChangeNotifierProvider(create: (_) => Orders()),
+        ChangeNotifierProvider(create: (_) => Settings()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Minha Loja',
-        theme: ThemeData(
-          primaryColor: Colors.lightBlue,
-          hintColor: Colors.deepOrange,
-          fontFamily: 'Lato',
-          drawerTheme: const DrawerThemeData(
-            elevation: 10,
-            shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
+      child: Consumer<Settings>(
+        builder: (ctx, settings, _) {
+          return MaterialApp(
+            theme: ThemeData(
+              primaryColor: Colors.purple,
+              hintColor: Colors.deepOrange,
+              fontFamily: 'Lato',
+              textTheme: ThemeData.light().textTheme.copyWith(
+                    titleMedium: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    titleSmall: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    titleLarge: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
             ),
-            backgroundColor: Colors.lightBlue,
-          ),
-
-
-        ),
-        home: ProductOverviewScreen(),
-        routes: {
-          AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
-          AppRoutes.CART: (ctx) => CartScreen(),
-          AppRoutes.ORDERS: (ctx) => OrdersScreen(),
+            darkTheme: ThemeData(
+              primaryColor: Colors.purple,
+              hintColor: Colors.deepOrange,
+              fontFamily: 'Lato',
+              brightness: Brightness.dark,
+              textTheme: ThemeData.light().textTheme.copyWith(
+                  titleMedium: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  titleSmall: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
+                  titleLarge: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  )),
+            ),
+            themeMode: settings.isDark ? ThemeMode.dark : ThemeMode.light,
+            title: 'Minha Loja',
+            routes: {
+              AppRoutes.HOME: (ctx) => ProductOverviewScreen(),
+              AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
+              AppRoutes.CART: (ctx) => const CartScreen(),
+              AppRoutes.ORDERS: (ctx) => const OrdersScreen(),
+            },
+            debugShowCheckedModeBanner: false,
+          );
         },
       ),
     );

@@ -54,11 +54,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                             children: [
                               Text(
                                 prod.title,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Text(
                                 '${prod.quantity}x R\$${prod.price}',

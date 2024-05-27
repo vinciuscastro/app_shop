@@ -38,6 +38,7 @@ class ProductDetailScreen extends StatelessWidget {
               product.description,
               textAlign: TextAlign.center,
               softWrap: true,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
         ],

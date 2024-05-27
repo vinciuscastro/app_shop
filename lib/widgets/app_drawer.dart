@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import '../utils/app_routes.dart';
+import 'package:provider/provider.dart';
+import '../providers/settings.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final stg = Provider.of<Settings>(context, listen: false);
+
     return Drawer(
       child: Container(
         child: Column(
@@ -30,6 +34,14 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Pedidos'),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(AppRoutes.ORDERS);
+              },
+            ),
+            Spacer(),
+            SwitchListTile(
+              title: const Text('Modo Escuro'),
+              value: stg.isDark,
+              onChanged: (value) {
+                stg.toggleTheme();
               },
             ),
           ],
